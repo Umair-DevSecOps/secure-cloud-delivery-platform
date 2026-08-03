@@ -52,3 +52,23 @@ def test_create_employee():
 
     assert data["name"] == "Charlie Brown"
     assert data["email"] == "charlie@company.com"
+
+
+def test_update_employee():
+    client = app.test_client()
+
+    updated_data = {
+        "role": "Senior Developer"
+    }
+
+    response = client.put(
+        "/employees/1",
+        json=updated_data
+    )
+
+    assert response.status_code == 200
+
+    data = response.get_json()
+
+    assert data["id"] == 1
+    assert data["role"] == "Senior Developer"
