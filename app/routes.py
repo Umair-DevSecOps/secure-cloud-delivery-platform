@@ -19,3 +19,14 @@ def health():
 @app.route("/employees")
 def get_employees():
     return employees, 200
+
+@app.route("/employees/<int:employee_id>")
+def get_employee(employee_id):
+
+    for employee in employees:
+        if employee["id"] == employee_id:
+            return employee, 200
+
+    return {
+        "error": "Employee not found"
+    }, 404
