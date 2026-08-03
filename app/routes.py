@@ -1,5 +1,7 @@
+from flask import request
 from app import app
 from app.data import employees
+
 
 
 @app.route("/")
@@ -30,3 +32,22 @@ def get_employee(employee_id):
     return {
         "error": "Employee not found"
     }, 404
+
+@app.route("/employees", methods=["POST"])
+
+
+def create_employee():
+
+    data = request.get_json()
+
+    new_employee = {
+        "id": len(employees) + 1,
+        "name": data["name"],
+        "email": data["email"],
+        "department": data["department"],
+        "role": data["role"]
+    }
+
+    employees.append(new_employee)
+
+    return new_employee, 201

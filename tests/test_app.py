@@ -32,3 +32,23 @@ def test_get_employee_by_id():
 
     assert data["id"] == 1
     assert data["name"] == "Alice Smith"
+
+
+def test_create_employee():
+    client = app.test_client()
+
+    new_employee = {
+        "name": "Charlie Brown",
+        "email": "charlie@company.com",
+        "department": "Security",
+        "role": "Engineer"
+    }
+
+    response = client.post("/employees", json=new_employee)
+
+    assert response.status_code == 201
+
+    data = response.get_json()
+
+    assert data["name"] == "Charlie Brown"
+    assert data["email"] == "charlie@company.com"
