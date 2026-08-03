@@ -1,4 +1,5 @@
 from flask import Flask
+from app.data import employees
 
 app = Flask(__name__)
 
@@ -16,6 +17,9 @@ def health():
         "status": "healthy"
     }, 200
 
+@app.route("/employees")
+def get_employees():
+    return employees, 200
 
 if __name__ == "__main__":
     app.run(debug=True)
