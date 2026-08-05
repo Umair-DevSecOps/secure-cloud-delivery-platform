@@ -72,3 +72,16 @@ def test_update_employee():
 
     assert data["id"] == 1
     assert data["role"] == "Senior Developer"
+
+
+def test_delete_employee():
+
+    client = app.test_client()
+
+    response = client.delete("/employees/2")
+
+    assert response.status_code == 200
+
+    data = response.get_json()
+
+    assert data["message"] == "Employee deleted successfully"
